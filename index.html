@@ -165,6 +165,13 @@
             cursor: nwse-resize; 
             z-index: 3;
         }
+        .reminder-icon {
+            width: 16px; 
+            height: 16px;
+            display: block;      /* Prevents extra bottom spacing common with images */
+            object-fit: contain; /* Ensures the PNG doesn't stretch */
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -267,7 +274,7 @@
                                     <div class="checkbox ${t.completed ? 'checked' : ''}" onclick="handleToggleTask(${t.id}, ${t.completed})"></div>
                                     <span class="task-text">${t.text}</span>
                                     <button class="add-sub-btn" onclick="handleAddSubtask(${t.id})">+</button>
-                                    <button class="add-sub-btn" onclick="handleSetReminder(${t.id})">⏱</button>
+                                    <button class="add-sub-btn" onclick="handleSetReminder(${t.id})"><img src="remind-icon.png" class="reminder-icon" alt="Reminder"</button>
                                 </div>
                                 <div class="subtasks">
                                     ${(t.subtasks || []).map(s => `
