@@ -310,6 +310,10 @@
         loadData();
         supabaseClient.channel('realtime-sync').on('postgres_changes', { event: '*', schema: 'public', table: 'lists' }, loadData)
         .on('postgres_changes', { event: '*', schema: 'public', table: 'tasks' }, loadData).subscribe();
+        
+        window.widget = (preferences, widgetData) => {console.log("Widget initialized in Cosmo");
+        loadData(); // This starts your Supabase sync
+        };
     </script>
 </body>
 </html>
