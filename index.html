@@ -7,8 +7,8 @@
     <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;700&display=swap" rel="stylesheet">
     <style>
+        /* CORE STYLES */
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
         body, html { 
             background: transparent; 
             font-family: 'Comfortaa', cursive; 
@@ -17,7 +17,7 @@
             overflow: visible; 
         }
 
-        /* Top Add List Section */
+        /* UI SECTIONS */
         .add-list-section { 
             margin-bottom: 25px; 
             display: flex; 
@@ -29,26 +29,15 @@
             border: 1px solid rgba(255,255,255,0.1);
         }
         .add-list-input { 
-            padding: 6px; 
-            border-radius: 3px; 
-            border: 1px solid rgba(255,255,255,0.2); 
-            background: rgba(0,0,0,0.5); 
-            color: white; 
-            outline: none; 
-            font-family: inherit;
+            padding: 6px; border-radius: 3px; border: 1px solid rgba(255,255,255,0.2); 
+            background: rgba(0,0,0,0.5); color: white; outline: none; font-family: inherit;
         }
         .add-list-btn { 
-            padding: 6px 12px; 
-            border-radius: 3px; 
-            border: none; 
-            background: ##c3f8e3; 
-            color: white; 
-            cursor: pointer; 
-            font-weight: bold; 
-            font-family: inherit;
+            padding: 6px 12px; border-radius: 3px; border: none; 
+            background: #c3f8e3; color: #1a1a1a; cursor: pointer; font-weight: bold; font-family: inherit;
         }
 
-        /* Transparent List Containers */
+        /* CONTAINERS */
         .list-container {
             position: absolute;
             background: rgba(0, 0, 0, 0.4);
@@ -65,113 +54,65 @@
         .list-header { 
             display: flex; 
             justify-content: space-between; 
+            align-items: center;
             margin-bottom: 10px; 
             border-bottom: 1px solid rgba(255,255,255,0.1); 
-            padding-bottom: 3px; 
+            padding-bottom: 5px; 
         }
         .list-title { font-size: 12px; font-weight: 500; }
-        .delete-btn { background: none; border: none; color: #ff5f56; cursor: pointer; font-size: 10px; padding: 0 5px; }
 
-        /* Task Inputs */
-        .task-input { 
-            width: 100%; 
-            background: rgba(255,255,255,0.1); 
-            border: 1px solid rgba(255,255,255,0.1); 
-            border-radius: 3px; 
-            color: white; 
-            padding: 8px; 
-            font-size: 10px; 
-            margin-bottom: 10px; 
-            outline: none; 
-            position: relative;
-            z-index: 2; /* Ensures it stays above the dragging layer */
-        }
-
-        /* Task Rows */
+        /* TASK ROW STYLING */
         .task { 
-            display: flex; 
-            flex-direction: column; 
-            margin-bottom: 10px; 
-            padding: 4px; 
-            background: rgba(255,255,255,0.03); 
-            border-radius: 4px; 
+            display: flex; flex-direction: column; margin-bottom: 10px; 
+            padding: 4px; background: rgba(255,255,255,0.03); border-radius: 4px; 
         }
-        .task-main { display: flex; align-items: center; gap: 10px; }
+        .task-main { 
+            display: flex; 
+            align-items: center; /* PERFECT VERTICAL ALIGNMENT */
+            gap: 8px; 
+        }
         .task-text { flex: 1; font-size: 10px; line-height: 1; }
         .task.completed .task-text { text-decoration: line-through; opacity: 0.5; }
 
-        /* Checkboxes */
-        .checkbox { 
-            width: 14px; 
-            height: 14px; 
-            border: 1px solid white; 
-            border-radius: 50%; 
-            cursor: pointer; 
-            flex-shrink: 0; 
+        /* BUTTON & ICON STYLING */
+        .icon-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            padding: 2px;
         }
-        .checkbox.checked { 
-            background: #4cd964; 
-            border-color: #4cd964; 
-            position: relative; 
-        }
-        .checkbox.checked::after { 
-            content: '✓'; 
-            color: white; 
-            font-size: 12px; 
-            position: absolute; 
-            top: -1px; 
-            left: 3px; 
-        }
-
-        /* Subtasks */
-        .subtasks { 
-            margin-left: 26px; 
-            margin-top: 6px; 
-            border-left: 1px solid rgba(255,255,255,0.1); 
-            padding-left: 8px; 
-        }
-        .subtask { 
-            display: flex; 
-            align-items: center; 
-            gap: 6px; 
-            margin-bottom: 3px; 
-            font-size: 9px; 
-        }
-        .sub-checkbox { 
-            width: 12px; 
-            height: 12px; 
-            border: .5px solid white; 
-            border-radius: 50%; 
-            cursor: pointer; 
-        }
-        .sub-checkbox.checked { background: #4cd964; border-color: #4cd964; }
-        .add-sub-btn { 
-            background: rgba(255,255,255,0.1); 
-            border: none; 
-            color: #4cd964; 
-            cursor: pointer; 
-            font-size: 13px; 
-            border-radius: 2px; 
-            padding: 0 6px; 
-            line-height: 1;
-        }
-
-        .resize-handle { 
-            position: absolute; 
-            right: 0; 
-            bottom: 0; 
-            width: 13px; 
-            height: 13px; 
-            cursor: nwse-resize; 
-            z-index: 3;
-        }
-        .reminder-icon {
+        .ui-icon {
             width: 16px; 
             height: 16px;
-            display: block;      /* Prevents extra bottom spacing common with images */
-            object-fit: contain; /* Ensures the PNG doesn't stretch */
-            cursor: pointer;
+            object-fit: contain;
+            display: block;
         }
+        .delete-btn { background: none; border: none; cursor: pointer; padding: 2px; }
+        
+        .checkbox { 
+            width: 14px; height: 14px; border: 1px solid white; border-radius: 50%; 
+            cursor: pointer; flex-shrink: 0; 
+        }
+        .checkbox.checked { background: #4cd964; border-color: #4cd964; position: relative; }
+        .checkbox.checked::after { 
+            content: '✓'; color: white; font-size: 10px; 
+            position: absolute; top: -1px; left: 2px; 
+        }
+
+        /* SUBTASKS */
+        .subtasks { margin-left: 24px; margin-top: 6px; border-left: 1px solid rgba(255,255,255,0.1); padding-left: 8px; }
+        .subtask { display: flex; align-items: center; gap: 6px; margin-bottom: 3px; font-size: 9px; }
+        .sub-checkbox { width: 10px; height: 10px; border: .5px solid white; border-radius: 50%; cursor: pointer; }
+        .sub-checkbox.checked { background: #4cd964; border-color: #4cd964; }
+
+        .task-input { 
+            width: 100%; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.1); 
+            border-radius: 3px; color: white; padding: 8px; font-size: 10px; margin-bottom: 10px; 
+            outline: none; position: relative; z-index: 2;
+        }
+        .resize-handle { position: absolute; right: 0; bottom: 0; width: 13px; height: 13px; cursor: nwse-resize; z-index: 3; }
     </style>
 </head>
 <body>
@@ -184,7 +125,6 @@
     <div id="listsArea"></div>
 
     <script>
-        // Use a persistent client to avoid "already declared" errors
         if (typeof supabaseClient === 'undefined') {
             const S_URL = 'https://gzjakgmvxvkznoeupnat.supabase.co';
             const S_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd6amFrZ212eHZrem5vZXVwbmF0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjYwMzgxNTgsImV4cCI6MjA4MTYxNDE1OH0.qQGTrXgYWMdqP5NK6zdx75pNqYtb2H7vaQnKpZAvFvI';
@@ -204,13 +144,13 @@
             } catch (e) { console.error("Sync Error:", e); }
         }
 
-        // --- LIST ACTIONS ---
+        // --- ACTIONS ---
         document.getElementById('save-list-trigger').onclick = async () => {
             const input = document.getElementById('newListInput');
             const name = input.value.trim();
             if (!name) return;
-            const { error } = await supabaseClient.from('lists').insert([{ name, x_position: 100, y_position: 150, width: 250 }]);
-            if (!error) { input.value = ""; loadData(); }
+            await supabaseClient.from('lists').insert([{ name, x_position: 100, y_position: 150, width: 250 }]);
+            input.value = ""; loadData();
         };
 
         async function handleDeleteList(id) {
@@ -221,12 +161,10 @@
             }
         }
 
-        // --- TASK ACTIONS ---
         async function handleAddTask(listId, event) {
             if (event.key === 'Enter' && event.target.value) {
                 await supabaseClient.from('tasks').insert([{ list_id: listId, text: event.target.value, subtasks: [] }]);
-                event.target.value = "";
-                loadData();
+                event.target.value = ""; loadData();
             }
         }
 
@@ -235,15 +173,11 @@
             loadData();
         }
 
-        // --- SUBTASK ACTIONS ---
         async function handleAddSubtask(taskId) {
             const text = prompt("New subtask:");
             if (!text) return;
-
             const task = tasks.find(t => t.id === taskId);
-            const currentSubtasks = task.subtasks || [];
-            const updated = [...currentSubtasks, { id: Date.now(), text, completed: false }];
-
+            const updated = [...(task.subtasks || []), { id: Date.now(), text, completed: false }];
             await supabaseClient.from('tasks').update({ subtasks: updated }).eq('id', taskId);
             loadData();
         }
@@ -255,6 +189,15 @@
             loadData();
         }
 
+        async function handleSetReminder(taskId) {
+            const time = prompt("Enter reminder (YYYY-MM-DD HH:MM)", "2025-12-18 14:00");
+            if (time) {
+                const isoTime = new Date(time).toISOString();
+                await supabaseClient.from('tasks').update({ due_at: isoTime }).eq('id', taskId);
+                loadData();
+            }
+        }
+
         // --- RENDER ---
         function render() {
             const area = document.getElementById('listsArea');
@@ -264,7 +207,9 @@
                 <div class="list-container" id="list-${l.id}" style="left:${l.x_position}px; top:${l.y_position}px; width:${l.width}px">
                     <div class="list-header">
                         <span class="list-title">${l.name}</span>
-                        <button class="delete-btn" onclick="handleDeleteList(${l.id})"><img src="x-button.png" class="delete-icon" alt="Delete"</button>
+                        <button class="delete-btn" onclick="handleDeleteList(${l.id})">
+                            <img src="x-button.png" class="ui-icon" alt="Delete">
+                        </button>
                     </div>
                     <input type="text" class="task-input" placeholder="+ Add task" onkeypress="handleAddTask(${l.id}, event)">
                     <div>
@@ -273,8 +218,12 @@
                                 <div class="task-main">
                                     <div class="checkbox ${t.completed ? 'checked' : ''}" onclick="handleToggleTask(${t.id}, ${t.completed})"></div>
                                     <span class="task-text">${t.text}</span>
-                                    <button class="add-sub-btn" onclick="handleAddSubtask(${t.id})"><img src="plus-button.png" class="add-icon" alt="Subtask"</button>
-                                    <button class="add-sub-btn" onclick="handleSetReminder(${t.id})"><img src="alarm-button.png" class="reminder-icon" alt="Reminder"</button>
+                                    <button class="icon-btn" onclick="handleAddSubtask(${t.id})">
+                                        <img src="plus-button.png" class="ui-icon" alt="Add">
+                                    </button>
+                                    <button class="icon-btn" onclick="handleSetReminder(${t.id})">
+                                        <img src="alarm-button.png" class="ui-icon" alt="Alarm">
+                                    </button>
                                 </div>
                                 <div class="subtasks">
                                     ${(t.subtasks || []).map(s => `
@@ -293,15 +242,13 @@
             makeDraggable();
         }
 
-        // --- INTERACTION LOGIC ---
+        // --- INTERACTION ---
         function makeDraggable() {
             document.querySelectorAll('.list-container').forEach(el => {
                 el.onmousedown = (e) => {
-                    // Prevent dragging when interacting with UI elements
-                    if (e.target.tagName === 'INPUT' || e.target.tagName === 'BUTTON' || e.target.classList.contains('checkbox') || e.target.classList.contains('sub-checkbox') || e.target.classList.contains('resize-handle')) {
+                    if (e.target.tagName === 'INPUT' || e.target.tagName === 'BUTTON' || e.target.tagName === 'IMG' || e.target.classList.contains('checkbox') || e.target.classList.contains('sub-checkbox') || e.target.classList.contains('resize-handle')) {
                         return; 
                     }
-                    
                     let sX = e.clientX - el.offsetLeft, sY = e.clientY - el.offsetTop;
                     document.onmousemove = (m) => {
                         el.style.left = (m.pageX - sX) + 'px';
@@ -311,7 +258,6 @@
                         document.onmousemove = null;
                         const id = el.id.split('-')[1];
                         await supabaseClient.from('lists').update({ x_position: parseInt(el.style.left), y_position: parseInt(el.style.top) }).eq('id', id);
-                        document.onmouseup = null;
                     };
                 };
             });
@@ -324,50 +270,27 @@
             document.onmouseup = async () => {
                 document.onmousemove = null;
                 await supabaseClient.from('lists').update({ width: parseInt(el.style.width) }).eq('id', id);
-                document.onmouseup = null;
             };
         }
 
-        // Initial Load and Realtime Subscription
+        // ALARMS
+        setInterval(() => {
+            const now = new Date();
+            tasks.forEach(task => {
+                if (task.due_at && !task.completed && !task.notified) {
+                    const due = new Date(task.due_at);
+                    if (now >= due) {
+                        const audio = new Audio('https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3');
+                        audio.play().catch(e => console.log("Audio blocked"));
+                        task.notified = true;
+                    }
+                }
+            });
+        }, 30000);
+
         loadData();
-        supabaseClient.channel('realtime-sync')
-            .on('postgres_changes', { event: '*', schema: 'public', table: 'lists' }, loadData)
-            .on('postgres_changes', { event: '*', schema: 'public', table: 'tasks' }, loadData)
-            .subscribe();
-
-// 1. Monitor for due dates every 30 seconds
-setInterval(() => {
-    const now = new Date();
-    tasks.forEach(task => {
-        // Only alert if task has a due date, isn't done, and hasn't notified yet
-        if (task.due_at && !task.completed && !task.notified) {
-            const due = new Date(task.due_at);
-            if (now >= due) {
-                playAlertTone();
-                task.notified = true; // Prevents the tone from repeating
-                console.log("Alarm triggered for: " + task.text);
-            }
-        }
-    });
-}, 30000);
-
-// 2. The Sound Function
-function playAlertTone() {
-    const audio = new Audio('https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3');
-    audio.play().catch(e => {
-        console.log("Audio blocked: Interaction needed once per session.");
-    });
-}
-
-// 3. The Function to set the time
-async function handleSetReminder(taskId) {
-    const time = prompt("Enter reminder (Format: YYYY-MM-DD HH:MM)", "2025-12-18 14:00");
-    if (time) {
-        const isoTime = new Date(time).toISOString();
-        await supabaseClient.from('tasks').update({ due_at: isoTime }).eq('id', taskId);
-        loadData();
-    }
-}         
+        supabaseClient.channel('realtime-sync').on('postgres_changes', { event: '*', schema: 'public', table: 'lists' }, loadData)
+        .on('postgres_changes', { event: '*', schema: 'public', table: 'tasks' }, loadData).subscribe();
     </script>
 </body>
 </html>
