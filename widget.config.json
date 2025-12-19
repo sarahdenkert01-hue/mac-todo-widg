@@ -1,0 +1,11 @@
+{
+  "name": "Get Shit Done",
+  "minCosmoVersion": "0.4.0",
+  "defaultWidth": 500,
+  "defaultHeight": 700,
+  "minWidth": 300,
+  "minHeight": 300,
+  "allowResize": true,
+  "allowInternet": true,
+  "allowLockScreen": true
+}
